@@ -1,8 +1,4 @@
-"use client";
-
 import { WikiNode } from "mobx-lark";
-import { observer } from "mobx-react";
-import { useEffect, useState } from "react";
 import { treeFrom } from "web-utility";
 
 import { lark } from "@/lib/api/Lark/core";
@@ -30,43 +26,10 @@ const renderTree = (children?: XWikiNode[]) =>
     </ol>
   );
 
-const WikiIndexPage = observer(() => {
-  const [nodes, setNodes] = useState<XWikiNode[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default async function WikiIndexPage() {
+  await lark.getAccessToken();
 
-  useEffect(() => {
-    const loadWiki = async () => {
-      try {
-        await lark.getAccessToken();
-        const wikiNodes = await wikiStore.getAll();
-        setNodes(wikiNodes);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load wiki");
-        console.error("Error loading wiki:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadWiki();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="prose container mx-auto max-w-screen-xl px-4 pt-24 pb-6">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="prose container mx-auto max-w-screen-xl px-4 pt-24 pb-6">
-        <p className="text-red-600">Error: {error}</p>
-      </div>
-    );
-  }
+  const nodes = await wikiStore.getAll();
 
   return (
     <div className="prose container mx-auto max-w-screen-xl px-4 pt-24 pb-6">
@@ -76,6 +39,4 @@ const WikiIndexPage = observer(() => {
       )}
     </div>
   );
-});
-
-export default WikiIndexPage;
+}
