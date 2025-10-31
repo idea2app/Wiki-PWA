@@ -1,5 +1,5 @@
 {
-  "name": "@idea2app/next-shadcn-ts",
+  "name": "@idea2app/wiki-pwa",
   "version": "0.2.0",
   "description": "React project scaffold based on TypeScript, Next.js, shadcn/ui & Tailwind CSS.",
   "private": true,

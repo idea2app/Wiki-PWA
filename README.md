@@ -1,4 +1,4 @@
-# Next-shadcn-ts
+# wiki-pwa
 
 This is a [Next.js][1] project bootstrapped with [`create-next-app`][2].
 
