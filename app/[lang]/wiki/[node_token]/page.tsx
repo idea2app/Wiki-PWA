@@ -18,9 +18,7 @@ export default async function WikiDocumentPage({
 
   const node = await wikiStore.getOne(node_token);
 
-  if (!node || node.obj_type !== "docx") {
-    notFound();
-  }
+  if (node?.obj_type !== "docx") notFound();
 
   const blocks = await documentStore.getOneBlocks(
     node.obj_token,
@@ -29,7 +27,6 @@ export default async function WikiDocumentPage({
 
   return (
     <div className="prose container mx-auto max-w-screen-xl px-4 pt-24 pb-6">
-      <h1>{node.title}</h1>
       {renderBlocks(blocks)}
     </div>
   );

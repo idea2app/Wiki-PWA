@@ -34,6 +34,7 @@ export default async function WikiIndexPage() {
   return (
     <div className="prose container mx-auto max-w-screen-xl px-4 pt-24 pb-6">
       <h1>Wiki</h1>
+
       {renderTree(
         treeFrom(nodes, "node_token", "parent_node_token", "children"),
       )}
